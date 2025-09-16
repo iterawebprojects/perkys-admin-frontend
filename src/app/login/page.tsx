@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { AndroidStatusBar } from "@/components/layout/android-status-bar";
 
 export default function LoginPage() {
   const [show, setShow] = useState(false);
@@ -20,7 +21,7 @@ export default function LoginPage() {
       {/* Lienzo mobile 360×800 */}
       <div className="relative h-[800px] w-[360px] overflow-hidden rounded-md bg-white">
         {/* Status bar (24px alto, naranja) */}
-        <div className="absolute top-0 left-0 h-[24px] w-full bg-[#CC4902]" />
+        <AndroidStatusBar />
 
         {/* Header naranja con gradiente */}
         <div className="-translate-x-1/2 absolute top-[24px] left-1/2 h-[235px] w-[513px] rounded-b-[150px] bg-[linear-gradient(360deg,#FF6600_0%,#CC4902_100%)]" />
