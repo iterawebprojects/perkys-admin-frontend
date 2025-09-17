@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { AndroidStatusBar } from "@/components/layout/android-status-bar";
+import { StatusBar } from "@/components/layout/statusbar";
 
 export default function LoginPage() {
   const [show, setShow] = useState(false);
 
-  // estado controlado para saber si mostrar u ocultar el “chip”
+  // Estado controlado para el chip visual
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [emailFocused, setEmailFocused] = useState(false);
@@ -17,17 +17,17 @@ export default function LoginPage() {
   const showPwdChip = !pwdFocused && pwd.length === 0;
 
   return (
-    <section className="grid min-h-screen place-items-center bg-background">
+    <section className="min-h-screen bg-background flex items-start justify-center antialiased">
       {/* Lienzo mobile 360×800 */}
-      <div className="relative h-[800px] w-[360px] overflow-hidden rounded-md bg-white">
+      <div className="relative min-h-[800px] w-[360px] overflow-hidden rounded-md bg-white shadow-md">
         {/* Status bar (24px alto, naranja) */}
-        <AndroidStatusBar />
+        <StatusBar />
 
-        {/* Header naranja con gradiente */}
-        <div className="-translate-x-1/2 absolute top-[24px] left-1/2 h-[235px] w-[513px] rounded-b-[150px] bg-[linear-gradient(360deg,#FF6600_0%,#CC4902_100%)]" />
+        {/* Header naranja con gradiente (ancho/alto pares y centrado sin sub-píxeles) */}
+        <div className="absolute top-[24px] left-1/2 h-[236px] w-[512px] -ml-[256px] rounded-b-[150px] bg-[linear-gradient(360deg,#FF6600_0%,#CC4902_100%)]" />
 
         {/* Logo */}
-        <div className="-translate-x-1/2 absolute top-[24px] left-1/2 grid h-[235px] w-[513px] place-items-center">
+        <div className="absolute top-[24px] left-1/2 grid h-[236px] w-[512px] -ml-[256px] place-items-center">
           <Image
             src="/logo/logo-icon.svg"
             alt="Perkys"
@@ -42,10 +42,10 @@ export default function LoginPage() {
         <div className="absolute top-[234px] left-[20px] min-h-[326px] w-[320px] rounded-[15px] bg-[#F5F5F5] px-5 py-[30px] shadow-[0_4px_4px_rgba(0,0,0,0.15)]">
           {/* Título y copy */}
           <div className="space-y-2">
-            <h1 className="font-medium text-[#242424] text-[14px] leading-[20px]">
+            <h1 className="text-[14px] leading-[20px] font-medium text-[#242424]">
               Iniciar sesión
             </h1>
-            <p className="text-[#808080] text-[12px] leading-4">
+            <p className="text-[12px] leading-4 text-[#808080]">
               Accedé con la cuenta que te asignamos para gestionar tu empresa en
               Perkys.
             </p>
@@ -61,15 +61,15 @@ export default function LoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               onFocus={() => setEmailFocused(true)}
               onBlur={() => setEmailFocused(false)}
-              className="h-[50px] w-[280px] rounded-[15px] border border-[#808080] bg-[F5F5F5] px-4 text-[#808080] text-[14px] outline-[F5F5F5]"
+              className="h-[50px] w-[280px] rounded-[15px] border border-[#808080] bg-[#F5F5F5] px-4 text-[14px] text-[#808080] outline-[F5F5F5]"
             />
-            {/* Chip EMAIL: ahora ocupa todo el input */}
+            {/* Chip EMAIL */}
             {showEmailChip && (
               <div
                 aria-hidden
-                className="-translate-y-1/2 pointer-events-none absolute top-1/2 right-4 left-4 flex h-[26px] select-none items-center rounded-[15px] bg-[F5F5F5] px-[10px]"
+                className="pointer-events-none absolute left-4 right-4 top-1/2 -translate-y-1/2 flex h-[26px] select-none items-center rounded-[15px] bg-[#F5F5F5] px-[10px]"
               >
-                <span className="text-[#808080] text-[16px] leading-5">
+                <span className="text-[16px] leading-5 text-[#808080]">
                   Correo electrónico
                 </span>
               </div>
@@ -86,15 +86,15 @@ export default function LoginPage() {
               onChange={(e) => setPwd(e.target.value)}
               onFocus={() => setPwdFocused(true)}
               onBlur={() => setPwdFocused(false)}
-              className="h-[50px] w-[280px] rounded-[15px] border border-[#808080] bg-[F5F5F5] px-4 pr-10 text-[#808080] text-[14px] outline-[F5F5F5]"
+              className="h-[50px] w-[280px] rounded-[15px] border border-[#808080] bg-[#F5F5F5] px-4 pr-10 text-[14px] text-[#808080] outline-[F5F5F5]"
             />
-            {/* Chip PASSWORD: ocupa todo el input pero deja lugar para el ojito (right-10) */}
+            {/* Chip PASSWORD (deja lugar al ojito) */}
             {showPwdChip && (
               <div
                 aria-hidden
-                className="-translate-y-1/2 pointer-events-none absolute top-1/2 right-10 left-4 flex h-[26px] select-none items-center rounded-[15px] bg-[F5F5F5] px-[10px]"
+                className="pointer-events-none absolute left-4 right-10 top-1/2 -translate-y-1/2 flex h-[26px] select-none items-center rounded-[15px] bg-[#F5F5F5] px-[10px]"
               >
-                <span className="text-[#808080] text-[16px] leading-5">
+                <span className="text-[16px] leading-5 text-[#808080]">
                   Contraseña
                 </span>
               </div>
@@ -104,7 +104,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => setShow((prev) => !prev)}
-              className="-translate-y-1/2 absolute top-1/2 right-4 p-1"
+              className="absolute right-4 top-1/2 -translate-y-1/2 p-1"
               aria-label={show ? "Ocultar contraseña" : "Mostrar contraseña"}
             >
               <Image
@@ -121,7 +121,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => console.log("Olvidaste tu contraseña")}
-              className="cursor-pointer font-medium text-[#242424] text-[14px] leading-[20px] transition hover:underline"
+              className="cursor-pointer text-[14px] leading-[20px] font-medium text-[#242424] transition hover:underline"
             >
               ¿Olvidaste tu contraseña?
             </button>
@@ -130,7 +130,7 @@ export default function LoginPage() {
           {/* Botón principal */}
           <button
             type="button"
-            className="mt-3 h-[44px] w-[280px] rounded-[15px] bg-[#FF6600] font-medium text-[16px] text-white transition hover:bg-[#ff6f12] active:scale-[0.99]"
+            className="mt-3 h-[44px] w-[280px] rounded-[15px] bg-[#FF6600] text-[16px] font-medium text-white transition hover:bg-[#ff6f12] active:scale-[0.99]"
           >
             Iniciar sesión
           </button>
