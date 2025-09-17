@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, Home, ShieldCheck, User } from "lucide-react";
+import Image from "next/image";
 
 type NavKey = "home" | "moderation" | "notifications" | "profile";
 
@@ -18,25 +18,25 @@ export default function Navbar({
     >
       <NavItem
         label="Inicio"
-        icon={<Home size={24} />}
+        iconSrc="/icons/home.svg"
         active={current === "home"}
         onClick={() => onChange("home")}
       />
       <NavItem
         label="Moderación"
-        icon={<ShieldCheck size={24} />}
+        iconSrc="/icons/lista.svg"
         active={current === "moderation"}
         onClick={() => onChange("moderation")}
       />
       <NavItem
         label="Notificaciones"
-        icon={<Bell size={24} />}
+        iconSrc="/icons/campana.svg"
         active={current === "notifications"}
         onClick={() => onChange("notifications")}
       />
       <NavItem
         label="Perfil"
-        icon={<User size={24} />}
+        iconSrc="/icons/usuario.svg"
         active={current === "profile"}
         onClick={() => onChange("profile")}
       />
@@ -46,12 +46,12 @@ export default function Navbar({
 
 function NavItem({
   label,
-  icon,
+  iconSrc,
   active,
   onClick,
 }: {
   label: string;
-  icon: React.ReactNode;
+  iconSrc: string;
   active?: boolean;
   onClick: () => void;
 }) {
@@ -62,16 +62,17 @@ function NavItem({
       className="flex h-[45px] flex-col items-center justify-center gap-[5px] transition hover:scale-[1.05]"
       aria-pressed={active}
     >
-      <div
-        className={`h-6 w-6 transition-colors ${
-          active ? "text-[#FF6600]" : "text-[#808080] hover:text-[#FF6600]"
-        }`}
-      >
-        {icon}
-      </div>
+      {/* Ícono exportado en SVG (24x24 en Figma) */}
+      <Image
+        src={iconSrc}
+        alt={label}
+        width={24}
+        height={24}
+        className={`transition ${active ? "brightness-75" : "brightness-100"}`}
+      />
       <span
         className={`font-['Ubuntu'] text-[12px] leading-[16px] transition-colors ${
-          active ? "text-[#FF6600]" : "text-[#808080] hover:text-[#FF6600]"
+          active ? "text-[#242424] hover:text-[#242424]" : "text-[#808080] "
         }`}
       >
         {label}

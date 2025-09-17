@@ -78,7 +78,7 @@ export default function HomeTopSection({
         {/* Input Buscar (322×45 con padding-left 16) */}
         <div className="flex h-[45px] w-[322px] items-center rounded-[15px] bg-[#F5F5F5] pr-2 pl-4">
           <Image
-            src="/icons/search-lg.svg"
+            src="/icons/search.svg"
             alt="Buscar"
             width={24}
             height={24}
@@ -102,8 +102,8 @@ export default function HomeTopSection({
               <Image
                 src="/icons/close.svg"
                 alt="Cerrar"
-                width={24}
-                height={24}
+                width={12}
+                height={12}
                 className="opacity-80"
               />
             </button>

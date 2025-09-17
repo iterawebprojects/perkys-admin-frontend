@@ -97,13 +97,19 @@ export default function ListItem({ item, onSuspend }: Props) {
 
           {open && (
             <div
-              className="absolute right-0 z-20 mt-1 flex h-[36px] w-[167px] items-center gap-2 rounded-[15px_0_15px_15px] bg-white px-4 shadow-[0_0_15px_rgba(0,0,0,0.25)]"
+              className="absolute right-0 z-20 mt-1 flex h-[36px] w-[167px] items-center justify-center gap-2 rounded-[15px_0_15px_15px] bg-white px-4 shadow-[0_0_15px_rgba(0,0,0,0.25)]"
               role="menu"
             >
-              <AlertTriangle size={18} className="text-[#242424]" />
+              <Image
+                src="/icons/alerta.svg"
+                alt="Suspender"
+                width={18}
+                height={18}
+                className="shrink-0"
+              />
               <button
                 type="button"
-                className="text-[14px] leading-5 text-[#242424]"
+                className="flex h-full items-center text-[14px] leading-5 text-[#242424]"
                 onClick={() => {
                   setOpen(false);
                   onSuspend?.(item.id);
