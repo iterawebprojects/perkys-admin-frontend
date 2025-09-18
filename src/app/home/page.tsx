@@ -61,7 +61,7 @@ const COMPANIES: HomeCompany[] = [
   },
 ];
 
-export default function HomePage() {
+export default function Home() {
   const [tab, setTab] = useState<TabKey>("usuarios");
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<Status | null>(null);

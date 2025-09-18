@@ -23,7 +23,7 @@ export default function HomeTopSection({
   onFilterChange,
 }: Props) {
   return (
-    // Contenido (322 × 215.58)
+    // Contenido (322×≈216)
     <div className="flex w-[322px] flex-col items-center gap-[10px]">
       {/* Logotipo 57×19.58 */}
       <div className="flex h-[19.58px] w-[57px] items-end">
@@ -37,7 +37,7 @@ export default function HomeTopSection({
         />
       </div>
 
-      {/* Título e input (gap 19px) */}
+      {/* Título + Tabs + Buscar + Filtros */}
       <div className="flex w-[322px] flex-col items-start gap-[19px]">
         {/* Título */}
         <div className="flex h-[24px] w-[153px] items-start gap-[5px]">
@@ -48,30 +48,50 @@ export default function HomeTopSection({
 
         {/* Tabs (Usuarios / Empresas) */}
         <div className="flex h-[30px] w-[320px] items-center gap-4">
+          {/* Usuarios */}
           <button
             type="button"
             onClick={() => onTabChange("usuarios")}
             className={cn(
               "flex h-[30px] w-[152px] items-center justify-center gap-[5px] rounded-[15px] px-[10px] py-2 text-[10px] leading-[14px] transition",
               tab === "usuarios"
-                ? "bg-[#FF6600] font-normal text-white"
+                ? "bg-[#FF6600] text-white"
                 : "bg-[#F5F5F5] text-[#242424]"
             )}
           >
-            Usuarios
+            <Image
+              src={tab === "usuarios" ? "/icons/user.svg" : "/icons/users.svg"}
+              alt="Usuarios"
+              width={12}
+              height={12}
+              className="h-[12px] w-[12px]"
+            />
+            <span>Usuarios</span>
           </button>
 
+          {/* Empresas */}
           <button
             type="button"
             onClick={() => onTabChange("empresas")}
             className={cn(
               "flex h-[30px] w-[152px] items-center justify-center gap-[5px] rounded-[15px] px-[10px] py-2 text-[10px] leading-[14px] transition",
               tab === "empresas"
-                ? "bg-[#FF6600] font-normal text-white"
+                ? "bg-[#FF6600] text-white"
                 : "bg-[#F5F5F5] text-[#242424]"
             )}
           >
-            Empresas
+            <Image
+              src={
+                tab === "empresas"
+                  ? "/icons/solicitud.svg"
+                  : "/icons/company.svg"
+              }
+              alt="Empresas"
+              width={12}
+              height={12}
+              className="h-[12px] w-[12px]"
+            />
+            <span>Empresas</span>
           </button>
         </div>
 
