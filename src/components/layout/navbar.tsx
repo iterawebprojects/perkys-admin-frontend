@@ -1,16 +1,46 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter, usePathname } from "next/navigation";
 
-type NavKey = "home" | "moderation" | "notifications" | "profile";
+export type NavKey = "home" | "moderation" | "notifications" | "profile";
+
+const NAV_ROUTES: Record<NavKey, string> = {
+  home: "/home",
+  moderation: "/moderacion", // 👈 ruta en español
+  notifications: "/notificaciones",
+  profile: "/perfil",
+};
 
 export default function Navbar({
   current,
   onChange,
 }: {
-  current: NavKey;
-  onChange: (key: NavKey) => void;
+  current?: NavKey; // ahora es opcional
+  onChange?: (key: NavKey) => void; // ahora es opcional
 }) {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Si no viene `current`, inferimos desde la URL
+  const inferred: NavKey | null = pathname?.startsWith("/home")
+    ? "home"
+    : pathname?.startsWith("/moderacion")
+    ? "moderation"
+    : pathname?.startsWith("/notificaciones")
+    ? "notifications"
+    : pathname?.startsWith("/perfil")
+    ? "profile"
+    : null;
+
+  const active = current ?? inferred ?? "home";
+
+  const go = (k: NavKey) => {
+    onChange?.(k);
+    // si no hay onChange o igual queremos navegar, hacemos push
+    router.push(NAV_ROUTES[k]);
+  };
+
   return (
     <nav
       className="-translate-x-1/2 absolute bottom-0 left-1/2 flex h-[61px] w-[360px] flex-row items-center justify-between bg-white px-[30px] py-[8px] shadow-[4px_0px_10px_rgba(0,0,0,0.25)]"
@@ -19,26 +49,26 @@ export default function Navbar({
       <NavItem
         label="Inicio"
         iconSrc="/icons/home.svg"
-        active={current === "home"}
-        onClick={() => onChange("home")}
+        active={active === "home"}
+        onClick={() => go("home")}
       />
       <NavItem
         label="Moderación"
         iconSrc="/icons/lista.svg"
-        active={current === "moderation"}
-        onClick={() => onChange("moderation")}
+        active={active === "moderation"}
+        onClick={() => go("moderation")}
       />
       <NavItem
         label="Notificaciones"
         iconSrc="/icons/campana.svg"
-        active={current === "notifications"}
-        onClick={() => onChange("notifications")}
+        active={active === "notifications"}
+        onClick={() => go("notifications")}
       />
       <NavItem
         label="Perfil"
         iconSrc="/icons/usuario.svg"
-        active={current === "profile"}
-        onClick={() => onChange("profile")}
+        active={active === "profile"}
+        onClick={() => go("profile")}
       />
     </nav>
   );
@@ -61,8 +91,8 @@ function NavItem({
       onClick={onClick}
       className="flex h-[45px] flex-col items-center justify-center gap-[5px] transition hover:scale-[1.05]"
       aria-pressed={active}
+      aria-current={active ? "page" : undefined}
     >
-      {/* Ícono exportado en SVG (24x24 en Figma) */}
       <Image
         src={iconSrc}
         alt={label}
@@ -72,7 +102,7 @@ function NavItem({
       />
       <span
         className={`font-['Ubuntu'] text-[12px] leading-[16px] transition-colors ${
-          active ? "text-[#242424] hover:text-[#242424]" : "text-[#808080] "
+          active ? "text-[#242424]" : "text-[#808080]"
         }`}
       >
         {label}

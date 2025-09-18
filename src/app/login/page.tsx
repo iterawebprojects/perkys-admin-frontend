@@ -2,9 +2,11 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import StatusBar from "@/components/layout/statusbar";
 
-export default function LoginPage() {
+export default function Login() {
+  const router = useRouter();
   const [show, setShow] = useState(false);
 
   // Estado controlado para el chip visual
@@ -15,6 +17,11 @@ export default function LoginPage() {
 
   const showEmailChip = !emailFocused && email.length === 0;
   const showPwdChip = !pwdFocused && pwd.length === 0;
+
+  const handleLogin = () => {
+    // TODO: validar credenciales / llamar API
+    router.push("/home"); // 👈 navega a Home
+  };
 
   return (
     <section className="min-h-screen bg-background flex items-start justify-center antialiased">
@@ -86,9 +93,12 @@ export default function LoginPage() {
               onChange={(e) => setPwd(e.target.value)}
               onFocus={() => setPwdFocused(true)}
               onBlur={() => setPwdFocused(false)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleLogin(); // enter para enviar
+              }}
               className="h-[50px] w-[280px] rounded-[15px] border border-[#808080] bg-[#F5F5F5] px-4 pr-10 text-[14px] text-[#808080] outline-[F5F5F5]"
             />
-            {/* Chip PASSWORD (deja lugar al ojito) */}
+            {/* Chip PASSWORD */}
             {showPwdChip && (
               <div
                 aria-hidden
@@ -130,6 +140,7 @@ export default function LoginPage() {
           {/* Botón principal */}
           <button
             type="button"
+            onClick={handleLogin} // 👈 navegación
             className="mt-3 h-[44px] w-[280px] rounded-[15px] bg-[#FF6600] text-[16px] font-medium text-white transition hover:bg-[#ff6f12] active:scale-[0.99]"
           >
             Iniciar sesión
